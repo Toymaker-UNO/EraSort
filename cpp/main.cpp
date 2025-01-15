@@ -3,6 +3,7 @@
 void make_file_list(std::list<std::string>& a_file_list, 
                    const std::string& a_path, 
                    const std::list<std::string>& a_extensions) {
+    fprintf(stdout, "Scanning %s\n", a_path.c_str());
     if (true == era_sort::Directory::is_directory(a_path)) {
         era_sort::Directory::get_file_list(a_file_list, a_path, a_extensions);
     }
@@ -49,6 +50,21 @@ bool filter(const std::string& a_file_name) {
         return false;
     }
     else if (std::string::npos != a_file_name.find("/AppData/")) {
+        return false;
+    }
+    else if (std::string::npos != a_file_name.find("Recycle")) {
+        return false;
+    }
+    else if (std::string::npos != a_file_name.find("/RobotCoding/")) {
+        return false;
+    }
+    else if (std::string::npos != a_file_name.find("/Premiere Pro")) {
+        return false;
+    }
+    else if (std::string::npos != a_file_name.find("/PURPLE WRITING/")) {
+        return false;
+    }
+    else if (std::string::npos != a_file_name.find("FB1_Fantasy")) {
         return false;
     }
     return true;
