@@ -6,6 +6,10 @@
 #include <list>
 #include <dirent.h>
 #include <sys/types.h>
+#include <sys/stat.h>
+#include <stdio.h>
+#include <direct.h>
+#include <errno.h>
 
 namespace era_sort {
 
@@ -17,7 +21,7 @@ public:
         get_file_list(file_list, a_path, extensions);
         return file_list;
     }
-    
+
     static void get_file_list(std::list<std::string>& a_file_list,
                               const std::string& a_path,
                               const std::list<std::string>& extensions = Directory::m_empty_extensions) {
@@ -52,6 +56,28 @@ public:
         }
         closedir(dir);
     }
+
+    static bool is_directory(const std::string& a_directory_name) {
+        struct stat info;
+        if (stat(a_directory_name.c_str(), &info) != 0) {
+            return false; // Directory does not exist
+        } else if (info.st_mode & S_IFDIR) {
+            return true; // Directory exists
+        } else {
+            return false; // Not a directory
+        }
+    }
+
+    static bool make_directory(const std::string& a_directory_name) {
+        if (0 == mkdir(a_directory_name.c_str())) {
+            return true;
+        }
+        std::string error_message = "Fail: mkdir(" + a_directory_name + ")";
+        perror(error_message.c_str());
+		fprintf(stderr, "errorno : %d", errno );    
+        return false;
+    }
+
 private:
     static const std::list<std::string> m_empty_extensions;
 };
