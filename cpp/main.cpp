@@ -85,15 +85,14 @@ int main(void) {
     make_file_list(file_list, "m:/", extensions);
     make_file_list(file_list, "n:/", extensions);
 
-
-    //FILE* p_file = fopen("./file_list.txt", "w+");
+    FILE* p_file = fopen("./era_sort_file_list.txt", "w+");
     for (const auto& file : file_list) {
         if(false == filter(file)) {
             continue;
         }
-        fprintf(stdout, "%s\n", file.c_str());
+        fprintf(p_file, "%s\n", file.c_str());
     }
-    //fclose(p_file); 
+    fclose(p_file); 
 
     return 0;
 }
