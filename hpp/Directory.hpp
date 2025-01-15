@@ -1,4 +1,6 @@
-#ifndef ERA_SORT_FILE_FINDER_H
+#ifndef ERA_SORT_DIRECTORY_H
+#define ERA_SORT_DIRECTORY_H
+
 #include <iostream>
 #include <string>
 #include <list>
@@ -56,4 +58,4 @@ private:
 
 } // namespace era_sort
 
-#endif // ERA_SORT_FILE_FINDER_H
+#endif // ERA_SORT_DIRECTORY_H
