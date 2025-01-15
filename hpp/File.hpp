@@ -55,6 +55,19 @@ public:
 
         return file_date;
     }
+
+    static bool copy(const std::string& a_source_path, const std::string& a_destination_path) {
+        std::ifstream sourceFile(a_source_path, std::ios::binary);
+        std::ofstream destinationFile(a_destination_path, std::ios::binary);
+        if (!sourceFile.is_open() || !destinationFile.is_open()) {
+            std::cerr << "Error opening files!" << std::endl;
+            return false;
+        }
+        destinationFile << sourceFile.rdbuf();
+        sourceFile.close();
+        destinationFile.close();
+        return true;
+    }
 };
 
 }   // namespace era_sort
